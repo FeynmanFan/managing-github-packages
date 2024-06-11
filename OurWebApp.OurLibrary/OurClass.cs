@@ -6,7 +6,7 @@
         {
             get
             {
-                return "This is our Header Text";
+                return "This is our header text";
             }
         }
     }
