@@ -15,17 +15,28 @@ pool:
 
 steps:
 - task: DotNetCoreCLI@2
+  displayName: 'Build in release mode'
   inputs:
     command: 'build'
     projects: '$(Build.SourcesDirectory)/OurWebApp.OurLibrary/OurWebApp.OurLibrary.csproj'
     arguments: '--configuration Release'
 - task: DotNetCoreCLI@2
+  displayName: 'Create the package'
   inputs:
     command: 'pack'
     packagesToPack: '$(Build.SourcesDirectory)/OurWebApp.OurLibrary/OurWebApp.OurLibrary.csproj'
     versioningScheme: 'off'
 
 - task: Bash@3
+  displayName: 'Add the Github Packages Feed'
   inputs:
     targetType: 'inline'
     script: 'dotnet nuget add source --username FeynmanFan --password $(FEED_PAT) --store-password-in-clear-text --name github "https://nuget.pkg.github.com/FeynmanFan/index.json"'
+
+- task: Bash@3
+  displayName: 'Push the package'
+  inputs:
+    targetType: 'inline'
+    script: 'dotnet nuget push OurWebApp.OurLibrary.1.0.0.nupkg --api-key $(FEED_PAT) --store-password-in-clear-text --source github'
+
+
