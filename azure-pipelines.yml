@@ -37,6 +37,4 @@ steps:
   displayName: 'Push the package'
   inputs:
     targetType: 'inline'
-    script: 'dotnet nuget push OurWebApp.OurLibrary.1.0.0.nupkg --api-key $(FEED_PAT) --store-password-in-clear-text --source github'
-
-
+    script: 'dotnet nuget push $(Build.ArtifactStagingDirectory)/*.nupkg --api-key $(FEED_PAT) --store-password-in-clear-text --source github'
