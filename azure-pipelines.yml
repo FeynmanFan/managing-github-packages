@@ -13,7 +13,7 @@ steps:
 - task: DotNetCoreCLI@2
   inputs:
     command: 'build'
-    projects: '$(Build.SourcesDirectory)\OurWebApp.OurLibrary.csproj'
+    projects: '$(Build.SourcesDirectory)/OurWebApp.OurLibrary/OurWebApp.OurLibrary.csproj'
 
 - task: PublishBuildArtifacts@1
   inputs:
