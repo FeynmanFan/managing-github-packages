@@ -6,6 +6,10 @@
 trigger:
 - main
 
+variables:
+- name: FEED_PAT
+  value: $(PAT)
+  
 pool:
   vmImage: ubuntu-latest
 
@@ -21,8 +25,7 @@ steps:
     packagesToPack: '$(Build.SourcesDirectory)/OurWebApp.OurLibrary/OurWebApp.OurLibrary.csproj'
     versioningScheme: 'off'
 
-- task: PublishBuildArtifacts@1
+- task: Bash@3
   inputs:
-    PathtoPublish: '$(Build.ArtifactStagingDirectory)'
-    ArtifactName: 'drop'
-    publishLocation: 'Container'
+    targetType: 'inline'
+    script: 'dotnet nuget add source --username FeynmanFan --password $(FEED_PAT) 1usvND --store-password-in-clear-text --name github "https://nuget.pkg.github.com/FeynmanFan/index.json"'
