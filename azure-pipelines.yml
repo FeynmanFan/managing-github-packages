@@ -28,4 +28,4 @@ steps:
 - task: Bash@3
   inputs:
     targetType: 'inline'
-    script: 'dotnet nuget add source --username FeynmanFan --password $(FEED_PAT) 1usvND --store-password-in-clear-text --name github "https://nuget.pkg.github.com/FeynmanFan/index.json"'
+    script: 'dotnet nuget add source --username FeynmanFan --password $(FEED_PAT) --store-password-in-clear-text --name github "https://nuget.pkg.github.com/FeynmanFan/index.json"'
